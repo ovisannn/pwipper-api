@@ -1,0 +1,26 @@
+{
+  "name": "pwipper-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app..js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./app.js",
+    "start": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ovisannn/pwipper-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ovisannn/pwipper-api/issues"
+  },
+  "homepage": "https://github.com/ovisannn/pwipper-api#readme",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.4.0"
+  }
+}
