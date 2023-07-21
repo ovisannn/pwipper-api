@@ -39,3 +39,17 @@ export function encryptSymmetric  (key, plaintext) {
   
     return plaintext;
   }
+
+
+//   usage
+//   // some plaintext you want to encrypt
+// const plaintext = "The quick brown fox jumps over the lazy dog";
+
+// // create or bring your own encryption key
+// const key = crypto.randomBytes(32).toString('base64');
+
+// // encryption
+// const { ciphertext, iv, tag } = encryptSymmetric(key, plaintext);
+
+// // decryption
+// const plaintext = decryptSymmetric(key, ciphertext, iv, tag);

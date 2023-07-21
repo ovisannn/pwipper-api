@@ -1,14 +1,13 @@
 import express from 'express'
-import mongoose from 'mongoose';
-// import config from './config.json' assert {type:'json'}
 import { createRequire } from 'module'
-
+import { mongoodb } from './model/db/mongo.js' 
 const require = createRequire(import.meta.url)
 const config = require('./config.json')
 // console.log(config)
+
+const db = new mongoodb(config.database.port, config.database.name)
 const app = express()
 
-mongoose.connect(config.database.url)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Routes(app)
