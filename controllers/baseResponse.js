@@ -1,4 +1,4 @@
-class baseResponse{
+export class BaseResponse{
     constructor(status, data){ 
         this.meta = {
             status : status,
@@ -16,6 +16,8 @@ class baseResponse{
     GetResponse(){
         return this
     }
-}
 
-export {baseResponse}
+    GetStatus(){
+        return this.meta.status
+    }
+}
