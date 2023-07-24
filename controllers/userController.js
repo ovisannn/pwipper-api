@@ -10,12 +10,12 @@ export class UserController{
         return this
     }
 
-    RegisterUser(req, res){
+    async RegisterUser(req, res){
         const userObj = new User(req.body)
         const userData = userObj.GetUser()
-        const result = this.usecase.RegisterUser(userData)
-        const newResponse = new BaseResponse(200, "result")
-        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse)   
+        const result = await this.usecase.RegisterUser(userData)
+        const newResponse = new BaseResponse(200, result)
+        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
     }
     
 }

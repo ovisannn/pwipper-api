@@ -6,13 +6,14 @@ export class UserUsecase{
         this.handler = userHandler
     }
 
-    RegisterUser(userData){
+    async RegisterUser(userData){
         let insertData = userData
         // const validateEmail = isEmail(insertData.isEmail)
         // if(validateEmail == false){
         //     return newError.EmailnotValid.message
         // }
-        const result = this.handler.RegisterUser(insertData)
+        const result = await this.handler.RegisterUser(insertData)
+        // console.log(result)
         return result
     }
 }

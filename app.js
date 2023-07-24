@@ -5,6 +5,7 @@ import { Router } from './routes/routes.js'
 import { UserHandler } from './model/handler/user.js'
 import { UserUsecase } from './business/user.js'
 import { UserController } from './controllers/userController.js'
+import mongoose from 'mongoose'
 
 const app = express()
 app.use(express.json());
@@ -27,5 +28,5 @@ router.routes()
 
 
 app.listen(process.env.PORT, () => {
-  console.log(`Example app listening on port ${process.env.PORT}`)
+  console.log(`Pwipper app listening on port ${process.env.PORT}`)
 })

@@ -24,7 +24,7 @@ export const UserSchema = new mongoose.Schema({
 
 export class User{
     constructor(data){
-        this._id = data._id?  ObjectId(data._id) : data._id
+        // this._id = data._id?  ObjectId(data._id) : data._id
         this.username = data.username
         this.email = data.email
         this.profilePpict = data.profilePpict? data.profilePpict : ""

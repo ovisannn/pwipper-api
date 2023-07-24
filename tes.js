@@ -36,5 +36,6 @@ const newaaa = {
 } 
 
 const model = mongoose.model("users", UserSchema)
-const asd = await model.create(newaaa)
+const asd = await model.create(newaaa).exec()
 console.log(asd)
+console.log('asd')

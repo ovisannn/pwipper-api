@@ -6,12 +6,14 @@ export class mongoodb{
     }
 
     init(){
-        // mongoose.createConnection(this.uri).asPromise()
-        // const db = mongoose.connection
-
-        // db.on('error', (error)=>{
-        //     console.log(error.message)
-        // })
+        const dbase = mongoose.connection
+        dbase.on('error', (error)=>{
+        console.log(error)
+        })
+        dbase.once('connected', () =>{
+        console.log('database connected')
+        })
         return mongoose.connect(this.uri)
+        // return 0
     }
 }

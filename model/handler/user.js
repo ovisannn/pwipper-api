@@ -7,21 +7,9 @@ export class UserHandler{
     }
 
     async RegisterUser(insertData){
-        try{
-            const user = await this.model.create(insertData)
-            user.save()
-        }catch(error){
-            console.log(error)
-            return error.messages
-        }
-
-        try{
-           const insertedUser =  await UserModel.find(insertData)
-        }catch(error){
-            return error.messages
-        }
-
-        console.log(user)
+        const user = await this.model.create(insertData)
+        const insertedUser =  await this.model.findOne(insertData)
+        // console.log(insertedUser)
         return insertedUser._id
     }
 }

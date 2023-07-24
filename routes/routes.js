@@ -9,6 +9,7 @@ export class Router{
         // this.app.route('/registerUser').post(this.controllerList.user.RegisterUser)
         this.app.post('/registerUser', (req, res)=>{
             return this.controllerList.user.RegisterUser(req, res)
+            // return res.json({asd:'asd'})
         })
     }
 }
