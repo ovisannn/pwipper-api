@@ -6,6 +6,9 @@ import { UserHandler } from './model/handler/user.js'
 import { UserUsecase } from './business/user.js'
 import { UserController } from './controllers/userController.js'
 import mongoose from 'mongoose'
+import { VideoUsecase } from './business/video.js'
+import { VideoController } from './controllers/videoController.js'
+import { VideoHandler } from './model/handler/video.js'
 
 const app = express()
 app.use(express.json());
@@ -19,13 +22,18 @@ const userHandler = new UserHandler()
 const userUsecase = new UserUsecase(userHandler)
 const userController = new UserController(userUsecase)
 
+//video
+const videoHandler = new VideoHandler()
+const videoUsecase = new VideoUsecase(videoHandler)
+const videoController = new VideoController(videoUsecase)
+
 const controllerList = {
-    user : userController
+    user : userController,
+    video : videoController
 }
 
 const router = new Router(app, controllerList)
 router.routes()
-
 
 app.listen(process.env.PORT, () => {
   console.log(`Pwipper app listening on port ${process.env.PORT}`)

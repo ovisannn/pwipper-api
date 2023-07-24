@@ -6,10 +6,17 @@ export class Router{
     }
 
     routes(){
-        // this.app.route('/registerUser').post(this.controllerList.user.RegisterUser)
-        this.app.post('/registerUser', (req, res)=>{
+        this.app.post('/user/register', (req, res)=>{
             return this.controllerList.user.RegisterUser(req, res)
-            // return res.json({asd:'asd'})
+        })
+
+        this.app.get('/user/getAll', (req, res)=>{
+            return this.controllerList.user.GetAllUser(req, res)
+        })
+
+        //return empy tho data successfully inserted
+        this.app.post('/video/insert', (req, res)=>{
+            return this.controllerList.video.InsertVideoController(req, res)
         })
     }
 }

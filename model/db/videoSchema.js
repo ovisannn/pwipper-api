@@ -1,11 +1,17 @@
 import mongoose from "mongoose";
 
-const VideoSchema = mongoose.Schema({
+export const VideoSchema = mongoose.Schema({
     title : String,
-    videoUrl : String,
+    videoUrl : {
+        type : String,
+        require : true
+    },
     thumbnailUrl : String,
     description : String,
-    username : mongoose.Schema.ObjectId,
+    username : {
+        type : String,
+        require : true
+    },
     comments : [{
         title : mongoose.Schema.ObjectId,
         comment : String 
@@ -14,7 +20,7 @@ const VideoSchema = mongoose.Schema({
     updatedAt : Date
 })
 
-export function UserModel(){
+export function VideoModel(){
     return mongoose.model('videos', VideoSchema)
 }
 

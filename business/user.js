@@ -16,4 +16,10 @@ export class UserUsecase{
         // console.log(result)
         return result
     }
+
+    async GetAllUser(){
+        const result = await this.handler.GetAllUser()
+        console.log(result)
+        return result
+    }
 }
