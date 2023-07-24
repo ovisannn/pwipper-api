@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import assert from "assert"
 import { UserSchema } from "../db/userSchema.js"
 
 export class UserHandler{
@@ -7,9 +8,15 @@ export class UserHandler{
     }
 
     async RegisterUser(insertData){
-        const user = await this.model.create(insertData)
-        const insertedUser =  await this.model.findOne(insertData)
-        // console.log(insertedUser)
+        const user = new this.model(insertData)
+        try{
+            await user.save()
+        }catch(err){
+            return err.message
+        }
+        const insertedUser =  await this.model.findOne({username : insertData.username})
+
+        console.log(insertedUser)
         return insertedUser._id
     }
 }

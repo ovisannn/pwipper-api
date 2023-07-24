@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-
+import assert from 'assert'
 class db {
     constructor(uri){
         return mongoose.connect(uri)
@@ -11,7 +11,7 @@ export const UserSchema = new mongoose.Schema({
     username : {
         type : String,
         require : true,
-        unique : true
+        unique : [true, "there is another account with this email"]
     },
     email : {
         type : String,
@@ -36,6 +36,14 @@ const newaaa = {
 } 
 
 const model = mongoose.model("users", UserSchema)
-const asd = await model.create(newaaa).exec()
-console.log(asd)
-console.log('asd')
+try{
+    const asd = await model.create(newaaa)
+}catch(err){
+    console.log(err.message)
+}
+const error = model.validate()
+assert.equal(error.errors['username'].message,
+  'there is another account with this email')
+// console.log(asd)
+// const res = await model.findOne({username : "ovisannn"})
+// console.log(res)
