@@ -5,7 +5,8 @@ export class VideoUsecase{
 
     async InsertVideo(videoData){
         const insertData = videoData
-        const result = this.handler.InsertVideo(insertData)
+        const result = await this.handler.InsertVideo(insertData)
+        // console.log(result)
         return result
     }
 }

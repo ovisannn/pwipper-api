@@ -12,6 +12,9 @@ export const VideoSchema = mongoose.Schema({
         type : String,
         require : true
     },
+    products : [{
+        id : mongoose.Schema.ObjectId
+    }],
     comments : [{
         title : mongoose.Schema.ObjectId,
         comment : String 
@@ -32,9 +35,10 @@ export class Video{
         this.thumbnailUrl = data.thumbnailUrl
         this.description = data.description
         this.username = data.username
+        this.products = data.products? data.products : []
         this.comments = data.comment? data.comment : []
-        this.createdAt = null? new Date() : data.createdAt
-        this.updatedAt = null? new Date() : data.updatedAt
+        this.createdAt = data.createdAt? data.createdAt : new Date()
+        this.updatedAt = data.updatedAt? data.updatedAt : new Date()
     }
 
     GetVideo(){

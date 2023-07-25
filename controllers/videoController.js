@@ -9,8 +9,8 @@ export class VideoController{
     async InsertVideoController(req, res){
         const video = new Video(req.body)
         const videoData = video.GetVideo()
-        const result = this.usecase.InsertVideo(videoData)
-        const newResponse = new BaseResponse(200, result)
+        const result = await this.usecase.InsertVideo(videoData)
+        const newResponse = new BaseResponse(200, {_id : result})
         return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
     }
 }

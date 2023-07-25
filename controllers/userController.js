@@ -10,13 +10,13 @@ export class UserController{
         const userObj = new User(req.body)
         const userData = userObj.GetUser()
         const result = await this.usecase.RegisterUser(userData)
-        const newResponse = new BaseResponse(200, result)
+        const newResponse = new BaseResponse(200, {_id : result})
         return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
     }
 
     async GetAllUser(req, res){
         const result = await this.usecase.GetAllUser()
-        const newResponse = new BaseResponse(200, result)
+        const newResponse = new BaseResponse(200, {users : result})
         return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
     }
     

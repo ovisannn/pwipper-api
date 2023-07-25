@@ -15,6 +15,7 @@ export class VideoHandler{
             return error.message
         }
         const insertedVideo =  await this.model.findOne({title : insertData.title, username : insertData.username})
+        // console.log(insertedVideo._id)
         return insertedVideo._id
     }
 }

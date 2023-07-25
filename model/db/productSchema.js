@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-const ProductSchema = mongoose.Schema({
+export const ProductSchema = mongoose.Schema({
     name : String,
-    video : mongoose.Schema.ObjectId,
+    username : String,
     description :String,
     price : [{
         currency : String,
@@ -12,9 +12,9 @@ const ProductSchema = mongoose.Schema({
     updatedAt : Date
     })
 
-export function UserModel(){
-    return mongoose.model('products', ProductSchema)
-}
+// export function UserModel(){
+//     return mongoose.model('products', ProductSchema)
+// }
 
 export class Product{
     constructor(data){
@@ -23,8 +23,8 @@ export class Product{
         this.video = ObjectId(data.video)
         this.description = data.description
         this.price = data.price
-        this.createdAt = null? new Date() : data.createdAt
-        this.updatedAt = null? new Date() : data.updatedAt
+        this.createdAt = data.createdAt? data.createdAt : new Date()
+        this.updatedAt = data.updatedAt? data.updatedAt : new Date()
     }
 
     GetProduct(){
