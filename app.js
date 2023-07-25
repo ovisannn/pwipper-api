@@ -48,5 +48,5 @@ const router = new Router(app, controllerList)
 router.routes()
 
 app.listen(process.env.PORT, () => {
-  console.log(`Pwipper app listening on port ${process.env.PORT}`)
+  console.log(`Pwipper running on port ${process.env.PORT}`)
 })

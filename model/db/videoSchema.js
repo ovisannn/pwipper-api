@@ -16,8 +16,9 @@ export const VideoSchema = mongoose.Schema({
         id : mongoose.Schema.ObjectId
     }],
     comments : [{
-        title : mongoose.Schema.ObjectId,
-        comment : String 
+        username : String,
+        comment : String,
+        date : Date
     }],
     createdAt : Date,
     updatedAt : Date

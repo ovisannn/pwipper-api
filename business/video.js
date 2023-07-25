@@ -9,4 +9,10 @@ export class VideoUsecase{
         // console.log(result)
         return result
     }
+
+    async InsertComment(commentData){
+        const insertComment = commentData
+        const result = await this.handler.insertComment(insertComment)
+        return result
+    }
 }
