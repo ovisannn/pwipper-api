@@ -14,6 +14,5 @@ export class mongoodb{
         console.log(`database connected on ${this.uri}`)
         })
         return mongoose.connect(this.uri)
-        // return 0
     }
 }

@@ -19,7 +19,7 @@ export const ProductSchema = mongoose.Schema({
 
 export class Product{
     constructor(data){
-        this._id = data._id?  ObjectId(data._id) : null
+        this._id = data._id?  data._id : null
         this.name = data.name
         this.username = data.username
         this.description = data.description
@@ -31,5 +31,16 @@ export class Product{
 
     GetProduct(){
         return this
+    }
+
+    GetProductsForEachVideo(){
+        return {
+            _id : this._id,
+            name : this.name,
+            username : this.username,
+            description : this.description,
+            url : this.url,
+            price : this.price
+        }
     }
 }

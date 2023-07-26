@@ -25,4 +25,14 @@ export class VideoUsecase{
         const result = await this.handler.GetVideoComments(videoId)
         return result
     }
+
+    async GetVideoProducts(videoId){
+        const result = await this.handler.GetVideoProducts(videoId)
+        return result
+    }
+
+    async InsertProductIntoVideo(insertData){
+        const result = await this.handler.InsertProductIntoVideo(insertData)
+        return result
+    }
 }

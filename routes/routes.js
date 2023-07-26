@@ -30,17 +30,20 @@ export class Router{
         })            
         //get product list req = {video._id} res = {product_id, linkproduct, title, price}***
         this.app.get('/video=:videoId/products', (req, res)=>{
-            return 0
+            return this.controllerList.video.GetVideoProductsController(req, res)
         })
         //get comment list req = {video._id} res = {username, comment, date}***
         this.app.get('/video=:videoId/comment', (req, res)=>{
             return this.controllerList.video.GetVideoCommentsController(req, res)
         })
-        //insert video
+        //insert video req = { title, videoUrl, thumbnailUrl, description, username }
         this.app.post('/video/insert', (req, res)=>{
             return this.controllerList.video.InsertVideoController(req, res)
         })
-        //post insert product in to video req = {video id, product id}
+        //post insert product in to video req = {videoId, productId}
+        this.app.post('/video/product/insert', (req, res)=>{
+            return this.controllerList.video.InsertProductIntoVideoController(req, res)
+        })
 
 
         //product routes

@@ -22,4 +22,6 @@ export class UserUsecase{
         // console.log(result)
         return result
     }
+
+    async GetComments(){}
 }

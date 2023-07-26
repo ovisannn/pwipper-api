@@ -33,4 +33,18 @@ export class VideoController{
         const newResponse = new BaseResponse(200, {comments : result})
         return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
     }
+
+    async GetVideoProductsController(req, res){
+        const videoId = req.params.videoId
+        const result = await this.usecase.GetVideoProducts(videoId)
+        const newResponse = new BaseResponse(200, {products : result})
+        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
+    }
+
+    async InsertProductIntoVideoController(req, res){
+        const insertData = req.body
+        const result = await  this.usecase.InsertProductIntoVideo(insertData)
+        const newResponse = new BaseResponse(200, result)
+        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
+    }
 }
