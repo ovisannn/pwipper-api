@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { VideoSchema } from "../db/videoSchema.js"
+import { VideoSchema, Video } from "../db/videoSchema.js"
 import { UserSchema } from "../db/userSchema.js"
 
 export class VideoHandler{
@@ -17,11 +17,11 @@ export class VideoHandler{
             return error.message
         }
         const insertedVideo =  await this.model.findOne({title : insertData.title, username : insertData.username})
-        // console.log(insertedVideo._id)
+
         return insertedVideo._id
     }
 
-    async insertComment(insertComment){
+    async InsertComment(insertComment){
         // find video
         const data = insertComment
         const findVideo = await this.model.findById(data.videoId)
@@ -51,5 +51,23 @@ export class VideoHandler{
         }
 
         return "success"
+    }
+
+    async GetVideosThumbnails(){
+        const resVideos = await this.model.find()
+        // console.log(resVideos)
+        var resThumbnails = []
+        resVideos.map((video)=>{
+            const videoObj = new Video(video)
+            resThumbnails.push(videoObj.GetVideoThumbnail())
+        })
+
+        return resThumbnails
+    }
+
+    async GetVideoComments(videoId){
+        const resVideo = await this.model.findById(videoId)
+        const videoObj = new Video(resVideo)
+        return videoObj.GetComments()
     }
 }

@@ -16,6 +16,6 @@ export class ProductHandler{
         }
 
         const insertedProduct =  await this.model.findOne({title : insertData.title, username : insertData.username})
-        return insertedVideo._id
+        return insertedProduct._id
     }
 }

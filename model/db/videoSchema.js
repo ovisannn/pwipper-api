@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+// import { ObjectId } from "mongodb";
 
 export const VideoSchema = mongoose.Schema({
     title : String,
@@ -30,19 +31,32 @@ export function VideoModel(){
 
 export class Video{
     constructor(data){
-        this._id = data._id?  ObjectId(data._id) : null
+        this._id = data._id?  data._id : null
         this.title = data.title
         this.videoUrl = data.videoUrl
         this.thumbnailUrl = data.thumbnailUrl
         this.description = data.description
         this.username = data.username
         this.products = data.products? data.products : []
-        this.comments = data.comment? data.comment : []
+        this.comments = data.comments? data.comments : []
         this.createdAt = data.createdAt? data.createdAt : new Date()
         this.updatedAt = data.updatedAt? data.updatedAt : new Date()
     }
 
     GetVideo(){
         return this
+    }
+
+    GetVideoThumbnail(){
+        //get thumbnail res = [{video._id, videoUrl thumbnail}]
+        return {
+            _id : this._id,
+            videoUrl : this.videoUrl,
+            thumbnailUrl : this.thumbnailUrl
+        }
+    }
+
+    GetComments(){
+        return this.comments
     }
 }

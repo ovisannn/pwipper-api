@@ -20,19 +20,34 @@ export class Router{
             //register product into video
             //delete video
             //update video
-            //add comment req = {username, comment, video._id} res={success/fail}*** => find video => find username
+        //add comment req = {username, comment, video._id} res={success/fail}*** 
         this.app.post('/video/comment/insert', (req, res)=>{
             return this.controllerList.video.InsertCommentController(req, res)
         })
-            //get thumbnail res = [{video._id, videoUrl thumbnail}] ***
-            //get product list req = {video._id} res = {product_id, linkproduct, title, price}***
-            //get comment list req = {video._id} res = {username, comment, date}***
+        //get thumbnail res = [{video._id, videoUrl thumbnail}] ***
+        this.app.get('/video/thumbnails', (req, res)=>{
+            return this.controllerList.video.GetVideosThumbnailsController(req, res)
+        })            
+        //get product list req = {video._id} res = {product_id, linkproduct, title, price}***
+        this.app.get('/video=:videoId/products', (req, res)=>{
+            return 0
+        })
+        //get comment list req = {video._id} res = {username, comment, date}***
+        this.app.get('/video=:videoId/comment', (req, res)=>{
+            return this.controllerList.video.GetVideoCommentsController(req, res)
+        })
+        //insert video
         this.app.post('/video/insert', (req, res)=>{
             return this.controllerList.video.InsertVideoController(req, res)
         })
+        //post insert product in to video req = {video id, product id}
+
 
         //product routes
-            //insert product
+        //insert product req = { name, username, url, description, price }
+        this.app.post('/product/insert', (req, res)=>{
+            return this.controllerList.product.InsertProductController(req, res)
+        })
             //get all product 
             //update product by id
             //delete product by id
