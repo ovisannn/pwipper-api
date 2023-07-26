@@ -1,15 +1,16 @@
 export class BaseResponse{
     constructor(status, data){ 
-        this.meta = {
+        if(status===200){
+            this.meta = {
             status : status,
             message: "success"
-        }
-        this.data = data
-
-        if (status === 400){
-            this.meta.message = "bad request"
-        }else if (status === 500){
-            this.meta.message = "server internal error"
+            }
+            this.data = data
+        }else{
+            this.meta={
+                status : status,
+                message: data
+            }
         }
     }
 

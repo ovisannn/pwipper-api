@@ -37,7 +37,7 @@ export class Video{
         this.thumbnailUrl = data.thumbnailUrl
         this.description = data.description
         this.username = data.username
-        this.products = data.products
+        this.products = data.products? data.products : []
         this.comments = data.comments? data.comments : []
         this.createdAt = data.createdAt? data.createdAt : new Date()
         this.updatedAt = data.updatedAt? data.updatedAt : new Date()

@@ -2,6 +2,7 @@ import mongoose from "mongoose"
 import { VideoSchema, Video } from "../db/videoSchema.js"
 import { UserSchema } from "../db/userSchema.js"
 import { ProductSchema, Product } from "../db/productSchema.js"
+import newError from "../../helpers/newErrorsMessage/newError.js"
 
 export class VideoHandler{
     constructor(){
@@ -12,27 +13,30 @@ export class VideoHandler{
 
     async InsertVideo(insertData){
         const video = new this.model(insertData)
-
+        const findUser = await this.modelUser.findOne({username : insertData.username})
+        if(findUser === null){
+            return {status : 404, data : newError.UserDoesntExist.message}
+        }
         try{
             await video.save()
         }catch(error){
-            return error.message
+            return {status : 500, data : newError.DbFailed.message}
         }
         const insertedVideo =  await this.model.findOne({title : insertData.title, username : insertData.username})
 
-        return insertedVideo._id
+        return {status : 200, data : {_id : insertedVideo._id}}
     }
 
+    //mvp
     async InsertComment(insertComment){
         const data = insertComment
         const findVideo = await this.model.findById(data.videoId)
         if(findVideo === null){
-            return null
+            return {status : 404, data : newError.VideoDoesntExist.message}
         }
         const findUser = await this.modelUser.findOne({username : data.username})
-        console.log(findUser)
         if(findUser === null){
-            return null
+            return {status : 404, data : newError.UserDoesntExist.message}
         }
         const comment = {
             username : findUser.username,
@@ -43,32 +47,44 @@ export class VideoHandler{
         try{
             await findVideo.save()
         }catch(error){
-            return error.message
+            return {status : 500, data : newError.DbFailed.message}
         }
 
-        return "success"
+        return {status : 200, data : "success"}
     }
 
+    //mvp
     async GetVideosThumbnails(){
         const resVideos = await this.model.find()
-       
+        if(resVideos === null|| resVideos === undefined){
+            return {status : 404, data : newError.VideoDoesntExist.message}
+        }
         var resThumbnails = []
         resVideos.map((video)=>{
             const videoObj = new Video(video)
             resThumbnails.push(videoObj.GetVideoThumbnail())
         })
 
-        return resThumbnails
+        return {status : 200, data : {tumbnails : resThumbnails}}
     }
 
+    //mvp
     async GetVideoComments(videoId){
         const resVideo = await this.model.findById(videoId)
+        if(resVideo === null || resVideo === undefined){
+            return {status : 404, data : newError.VideoDoesntExist.message}
+        }
         const videoObj = new Video(resVideo)
-        return videoObj.GetComments()
+       
+        return {status : 200, data : {comments : videoObj.GetComments()}}
     }
 
+    //mvp
     async GetVideoProducts(videoId){
         const resVideo = await this.model.findById(videoId)
+        if(resVideo === null || resVideo === undefined){
+            return {status : 404, data : newError.VideoDoesntExist.message}
+        }
         const videoObj = new Video(resVideo)
         const productIds = videoObj.GetProducts()
         var products = []
@@ -79,14 +95,18 @@ export class VideoHandler{
             products.push(prodObj.GetProductsForEachVideo())
           }
 
-        return products
+        return {status : 200, data : {products: products}}
     }
 
     async InsertProductIntoVideo(insertData){
         const resVideo = await this.model.findById(insertData.videoId)
-        // if null
+        if(resVideo === null || resVideo === undefined){
+            return {status : 404, data : newError.VideoDoesntExist.message}
+        }
         const resProduct = await this.model.findById(insertData.productId)
-        // if null
+        if(resProduct === null || resProduct === undefined){
+            return {status : 404, data : newError.ProductDoesntExist.message}
+        }
         const insert = {
             prodId : insertData.productId
         }
@@ -94,8 +114,8 @@ export class VideoHandler{
         try {
             await resVideo.save()
         }catch(error){
-            return error.message
+            return {status : 500, data : newError.DbFailed.message}
         }
-        return "success"
+        return {status : 200, data : "success"}
     }
 }

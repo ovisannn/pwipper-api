@@ -1,5 +1,6 @@
 import { isEmail } from "../helpers/emailValidation/emailValidation.js"
-// import { EmailnotValid } from "../helpers/newErrorsMessage/newError.js"
+import newError from "../helpers/newErrorsMessage/newError.js"
+import { User } from "../model/db/userSchema.js"
 
 export class UserUsecase{
     constructor(userHandler){
@@ -8,12 +9,14 @@ export class UserUsecase{
 
     async RegisterUser(userData){
         let insertData = userData
-        // const validateEmail = isEmail(insertData.isEmail)
-        // if(validateEmail == false){
-        //     return newError.EmailnotValid.message
-        // }
-        const result = await this.handler.RegisterUser(insertData)
-        // console.log(result)
+        const validateEmail = isEmail(insertData.email)
+        if(validateEmail === false){
+            return newError.EmailnotValid.message
+        }
+        const userObj = new User(userData)
+        userObj.HashPassword() 
+        // console.log(userObj.GetUser())
+        const result = await this.handler.RegisterUser(userObj.GetUser())
         return result
     }
 

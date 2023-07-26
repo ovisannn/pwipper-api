@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import { Encrypt } from "../../helpers/hash256/hash.js"
 
 export const UserSchema = new mongoose.Schema({
     username : {
@@ -18,13 +19,9 @@ export const UserSchema = new mongoose.Schema({
     updatedAt : Date
 })
 
-// export function UserModel(){
-//     return mongoose.model('users', UserSchema)
-// }
-
 export class User{
     constructor(data){
-        this._id = data._id?  ObjectId(data._id) : data._id
+        this._id = data._id?  data._id : null
         this.username = data.username
         this.email = data.email
         this.profilePpict = data.profilePpict? data.profilePpict : ""
@@ -36,5 +33,9 @@ export class User{
 
     GetUser(){
         return this
+    }
+
+    HashPassword(){
+        this.password = Encrypt(this.password)
     }
 }

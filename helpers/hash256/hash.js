@@ -1,14 +1,19 @@
-import bcrypt from 'bcryptjs'
 import 'dotenv/config'
-
-export function EncryptPassword(password){
-  const salt = process.env.SECRETKEY
-  const hash = bcrypt.hashSync(password, salt)
-  return hash
+import cryptoJs from 'crypto-js';
+// const crypto = require("crypto")
+export function Encrypt (password) {
+    var encrypted = cryptoJs.AES.encrypt(password, process.env.SECRETKEY).toString()
+    return encrypted
 }
 
-export function ValidatePassword(password, hashedPassword){
-  const result = bcrypt.compareSync(password, hashedPassword)
-  return result
+export function ValidatePassword(inputPassword, encryptedPassword){
+  var bytes = cryptoJs.AES.decrypt(encryptedPassword, process.env.SECRETKEY)
+  var originalPassword = bytes.toString(CryptoJS.enc.Utf8)
+
+  if(originalPassword === inputPassword){
+    return true
+  }
+  
+  return false
   // result should be true or false
 }
