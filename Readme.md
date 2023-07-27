@@ -3,6 +3,23 @@
 Pwipper-API is a tokopedia play clone. In this current state, this API only runs in local host.
 
 
+
+
+###  API Structure
+This Pwipper-API is RESTful API stands for Representational State Transfer API. It is an architectural style for designing web services. RESTful APIs are based on the HTTP protocol and use URIs to identify resources.
+
+### API Architecture
+This API is using clean architecture. Clean architecture is a software design pattern that prioritizes the separation of concerns and separates an application into distinct layers. By applying Clean Architecture to API development, you can build scalable, maintainable, and testable APIs that are easier to manage and evolve.
+
+The core of Clean Architecture is the domain/usecase/business layer. The domain layer represents the core business logic of the application. It is independent of any specific technology or platform, and it should be easy to test.
+
+![App Screenshot](https://playbook.hackney.gov.uk/API-Playbook/assets/images/clean_architecture-5cfe76b73f45e6a45082570315a20e7b.png)
+
+
+
+
+
+
 ## Run Locally
 
 Clone the project
