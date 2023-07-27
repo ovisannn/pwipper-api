@@ -12,10 +12,18 @@ export class ProductHandler{
         try{
             await product.save()
         }catch(error){
-            return error.message
+            return {status : 500, data : newError.DbFailed.message}
         }
 
         const insertedProduct =  await this.model.findOne({title : insertData.title, username : insertData.username})
-        return insertedProduct._id
+        if(insertedProduct === null || insertedProduct === undefined){
+            return {status : 500, data : newError.DbFailed.message}
+        }
+        return {status : 200, data : {_id : insertedProduct._id}}
+    }
+
+    async GetAllProducts(){
+        const result = await this.model.find()
+        return {status : 200, data :{products : result}}
     }
 }

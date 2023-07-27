@@ -6,17 +6,27 @@ export class UserController{
         this.usecase = userUsecase
     }
 
-    async RegisterUser(req, res){
+    async RegisterUserController(req, res){
         const userObj = new User(req.body)
         const userData = userObj.GetUser()
         const result = await this.usecase.RegisterUser(userData)
-        const newResponse = new BaseResponse(200, {_id : result})
+        const newResponse = new BaseResponse(result.status, result.data)
         return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
     }
 
-    async GetAllUser(req, res){
+    async GetAllUserController(req, res){
         const result = await this.usecase.GetAllUser()
-        const newResponse = new BaseResponse(200, {users : result})
+        const newResponse = new BaseResponse(result.status, result.data)
+        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
+    }
+
+    async LoginController(req, res){
+        const result = await this.usecase.Login(req.body)
+        const token = result.data
+        res.cookie("token", token, {
+            httpOnly: true
+        })
+        const newResponse = new BaseResponse(result.status, "login success")
         return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
     }
     

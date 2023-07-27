@@ -8,4 +8,9 @@ export class ProductUsecase{
         const result = this.handler.InsertProduct(insertData)
         return result
     }
+
+    async GetAllProducts(){
+        const result = await this.handler.GetAllProducts()
+        return result
+    }
 }

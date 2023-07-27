@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import cryptoJs from 'crypto-js';
+import CryptoJS from 'crypto-js';
 // const crypto = require("crypto")
 export function Encrypt (password) {
     var encrypted = cryptoJs.AES.encrypt(password, process.env.SECRETKEY).toString()

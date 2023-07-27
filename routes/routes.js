@@ -7,13 +7,19 @@ export class Router{
 
     routes(){
         //user routes
+        //register user req = {username, email, password} 
         this.app.post('/user/register', (req, res)=>{
-            return this.controllerList.user.RegisterUser(req, res)
+            return this.controllerList.user.RegisterUserController(req, res)
+        })
+        //get all user
+        this.app.get('/user/getAll', (req, res)=>{
+            return this.controllerList.user.GetAllUserController(req, res)
+        })
+        //login req = {username, password} => WARNING !!!! decrypt error = Cannot read properties of undefined (reading 'salt')
+        this.app.post('/user/login', (req, res)=>{
+            return this.controllerList.user.LoginController(req, res)
         })
 
-        this.app.get('/user/getAll', (req, res)=>{
-            return this.controllerList.user.GetAllUser(req, res)
-        })
 
         //video routes
             //get all video
@@ -51,7 +57,10 @@ export class Router{
         this.app.post('/product/insert', (req, res)=>{
             return this.controllerList.product.InsertProductController(req, res)
         })
-            //get all product 
+        //get all product
+        this.app.get('/product/getAll', (req, res)=>{
+            return this.controllerList.product.GetAllProductsController(req, res)
+        }) 
             //update product by id
             //delete product by id
     }

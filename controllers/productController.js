@@ -11,7 +11,13 @@ export class ProductController{
         // console.log(reqProduct)
         const productObj = new Product(reqProduct)
         const result = await this.usecase.InsertProduct(productObj)
-        const newResponse = new BaseResponse(200, {_id : result})
+        const newResponse = new BaseResponse(result.status, result.data)
+        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
+    }
+
+    async GetAllProductsController(req, res){
+        const result = await this.usecase.GetAllProducts()
+        const newResponse = new BaseResponse(result.status, result.data)
         return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
     }
 }

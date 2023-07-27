@@ -6,6 +6,8 @@ const UserDoesntExist = new Error("User Doesn't exist")
 const ProductDoesntExist = new Error("Product Doesn't exist")
 const DbFailed = new Error("Database failed")
 const InvalidIdFormat = new Error("Invalid ID format request")
+const InvalidCredentials = new Error("Invalid login Credentials")
+const UnauthorizedError = new Error("Unauthorized")
 
 export default {
     EmailnotValid,
@@ -15,5 +17,7 @@ export default {
     UserDoesntExist,
     DbFailed,
     ProductDoesntExist,
-    InvalidIdFormat 
+    InvalidIdFormat,
+    InvalidCredentials,
+    UnauthorizedError
 }
