@@ -1,7 +1,0 @@
-{
-    "database" : {
-        "url" : "mongodb://localhost:27017/pwipper"
-    },
-    "port" : 3000,
-    "key" : "YmmGd36E938w8LTu/+MddVgTYPbnSw9xssVeR4hglxQ="
-}
