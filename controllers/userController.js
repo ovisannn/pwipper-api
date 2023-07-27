@@ -26,7 +26,7 @@ export class UserController{
         res.cookie("token", token, {
             httpOnly: true
         })
-        const newResponse = new BaseResponse(result.status, "login success")
+        const newResponse = new BaseResponse(result.status, result.data.token? "login success" : result.data)
         return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
     }
     

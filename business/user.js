@@ -30,13 +30,17 @@ export class UserUsecase{
 
     async Login(loginData){
         const result = await this.handler.Login(loginData)
-        console.log(typeof(loginData.password))
-        const validate = ValidatePassword(loginData.password, result.password)
+        if(result.status !== 200){
+            return result
+        }
+        const validate = ValidatePassword(loginData.password, result.data.loginUser.password)
+        // console.log(validate)
         if(validate === false){
             return {status : 401, data : newError.InvalidCredentials.message}
         }
         //sign token
-        const token = Jwt.sign(result.data.username, process.env.TOKEN_SEC, {expiresIn : process.env.AUTH_TIMEOUT})
+        const token = Jwt.sign(result.data, process.env.TOKEN_SEC, {expiresIn : process.env.AUTH_TIMEOUT})
+        // console.log(typeof(token))
         return {status : 200, data : {token : token}}
     }
 }

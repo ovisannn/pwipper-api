@@ -51,5 +51,6 @@ import { Encrypt, ValidatePassword } from "./helpers/hash256/hash.js";
 
 const en = Encrypt("asd")
 console.log(en)
-const has = ValidatePassword("asd", en)
+// const has = ValidatePassword("mimin123", "U2FsdGVkX1+7Y3TgRamDn3BydLPoD1ki00mNOq4IcyE=")
+const has = ValidatePassword("U2FsdGVkX1+7Y3TgRamDn3BydLPoD1ki00mNOq4IcyE=", "mimin123")
 console.log(has)

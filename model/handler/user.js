@@ -46,7 +46,7 @@ export class UserHandler{
         const loginUser = await this.model.findOne({username : loginInsert.username})
         // console.log(loginUser)
         if(loginUser === null || loginUser=== undefined){
-            return {status : 500, data : newError.DbFailed.message}
+            return {status : 404, data : newError.UserDoesntExist.message}
         }
         return {status : 200, data : {loginUser}}
     }
