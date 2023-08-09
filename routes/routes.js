@@ -1,3 +1,4 @@
+import { CookieJwtAuth } from "./middleware/auth.js"
 
 export class Router{
     constructor(app, controllerList){
@@ -12,14 +13,17 @@ export class Router{
             return this.controllerList.user.RegisterUserController(req, res)
         })
         //get all user
-        this.app.get('/user/getAll', (req, res)=>{
+        this.app.get('/user/getAll', CookieJwtAuth, (req, res)=>{
             return this.controllerList.user.GetAllUserController(req, res)
         })
         //login req = {username, password} => WARNING !!!! decrypt error = Cannot read properties of undefined (reading 'salt')
         this.app.post('/user/login', (req, res)=>{
             return this.controllerList.user.LoginController(req, res)
         })
-
+        //get user by username req = {username}
+        this.app.get("/user/:username", (req, res)=>{
+            return this.controllerList.user.GetUserByUsernameController(req,res)
+        })
 
         //video routes
             //get all video

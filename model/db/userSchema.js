@@ -38,4 +38,11 @@ export class User{
     HashPassword(){
         this.password = Encrypt(this.password)
     }
+
+    GetUserPublicInformation(){
+        return{
+            username : this.username,
+            profilePpict : this.profilePpict
+        }
+    }
 }

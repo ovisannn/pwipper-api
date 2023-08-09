@@ -3,7 +3,10 @@ import mongoose from 'mongoose'
 import { mongoodb } from './model/db/mongo.js' 
 import 'dotenv/config'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 import { Router } from './routes/routes.js'
+import httpLogger from './helpers/logger/httpLogger.js'
+import { logger } from './helpers/logger/logger.js'
 
 import { UserHandler } from './model/handler/user.js'
 import { UserUsecase } from './business/user.js'
@@ -20,7 +23,8 @@ import { ProductController } from './controllers/productController.js'
 const app = express()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(httpLogger)
+app.use(cookieParser())
 app.use(
   cors({
     origin : "*"
@@ -55,5 +59,6 @@ const router = new Router(app, controllerList)
 router.routes()
 
 app.listen(process.env.PORT, () => {
-  console.log(`Pwipper running on port ${process.env.PORT}`)
+  // console.log(`Pwipper running on port ${process.env.PORT}`)
+  logger.info(`Pwipper running on port ${process.env.PORT}`)
 })
