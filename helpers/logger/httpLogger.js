@@ -6,6 +6,6 @@ logger.stream = {
 };
 
 export default morgan(
-  ':method :url :status :response-time ms - :res[content-length]',
+  'dev',
   { stream: logger.stream }
 );

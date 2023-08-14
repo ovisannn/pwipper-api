@@ -54,4 +54,25 @@ export class VideoUsecase{
         const result = await this.handler.InsertProductIntoVideo(insertData)
         return result
     }
+
+    async GetVideoById(videoId){
+        // console.log(videoId)
+        const result = await this.handler.GetVideoById(videoId)
+        return result
+    }
+
+    async UpdateVideoById(videoId, data){
+        const result = await this.handler.UpdateVideoById(videoId, data)
+        return result
+    }
+
+    async DeleteVideoById(videoId){
+        const result = await this.handler.DeleteVideoById(videoId)
+        return result
+    }
+
+    async SearchVideo(searchParam){
+        const result = await this.handler.SearchVideo(searchParam)
+        return result
+    }
 }

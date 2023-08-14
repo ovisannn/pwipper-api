@@ -24,9 +24,9 @@ export class UserController{
         const result = await this.usecase.Login(req.body)
         const token = result.data.token
         res.cookie("token", token, {
-            httpOnly: true
+            httpOnly: false
         })
-        const newResponse = new BaseResponse(result.status, result.data.token? result.data.username : result.data)
+        const newResponse = new BaseResponse(result.status, result.data.token? result.data : result.data)
         return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
     }
 

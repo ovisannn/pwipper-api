@@ -52,7 +52,9 @@ export class Video{
         return {
             _id : this._id,
             videoUrl : this.videoUrl,
-            thumbnailUrl : this.thumbnailUrl
+            thumbnailUrl : this.thumbnailUrl,
+            title : this.title,
+            username : this.username
         }
     }
 
