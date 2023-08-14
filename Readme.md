@@ -154,7 +154,8 @@ Request payload :
   {
     videoId : string, required,
     username : string, required,
-    comment : "string
+    comment : string,
+    token : string
   }
 ```
 
@@ -171,6 +172,45 @@ Request body Payload :
     username : string,
     email : string,
     password : string
+}
+```
+
+### Login User
+
+```http
+  POST /user/login
+```
+
+Request body Payload :
+
+```
+{
+    username : string,
+    password : string
+}
+```
+Response body Payload :
+
+```
+{
+    data: {
+        token: string,
+        username: string
+    }
+}
+```
+
+### Get All User
+```http
+  Get /user/getAll
+```
+Response body Payload :
+
+```
+{
+    data: {
+        users: object[]
+    }
 }
 ```
 
