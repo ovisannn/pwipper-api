@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { UserSchema } from "../db/userSchema.js"
+import { User, UserSchema } from "../db/userSchema.js"
 import newError from "../../helpers/newErrorsMessage/newError.js"
 
 export class UserHandler{
@@ -49,5 +49,31 @@ export class UserHandler{
             return {status : 404, data : newError.UserDoesntExist.message}
         }
         return {status : 200, data : {loginUser}}
+    }
+
+    async GetUserByUsername(username){
+        const userData = await this.model.findOne({username : username})
+        const newData = new User(userData)
+        const result = newData.GetUserPublicInformation()
+        if(userData === null || userData=== undefined){
+            return {status : 404, data : newError.UserDoesntExist.message}
+        }
+        return {status : 200, data : {result}}
+    }
+
+    async CheckUsername(username){
+        const findUser = await this.model.findOne({username : username})
+        if(findUser !== null){
+            return {status : 409, data : newError.UsernameAlreadyExist.message}
+        }
+        return {status : 200, data : 'success'}
+    }
+
+    async CheckEmail(email){
+        const findUser = await this.model.findOne({email : email})
+        if(findUser !== null){
+            return {status : 409, data : newError.EmailAlreadyExist.message}
+        }
+        return {status : 200, data : 'success'}
     }
 }

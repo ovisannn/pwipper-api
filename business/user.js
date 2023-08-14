@@ -17,6 +17,7 @@ export class UserUsecase{
         }
         const userObj = new User(userData)
         userObj.HashPassword() 
+        userObj.SetDefaultUserProfile()
         // console.log(userObj.GetUser())
         const result = await this.handler.RegisterUser(userObj.GetUser())
         return result
@@ -41,6 +42,21 @@ export class UserUsecase{
         //sign token
         const token = Jwt.sign(result.data, process.env.TOKEN_SEC, {expiresIn : process.env.AUTH_TIMEOUT})
         // console.log(typeof(token))
-        return {status : 200, data : {token : token}}
+        return {status : 200, data : {token : token, username : result.data.loginUser.username}}
+    }
+
+    async GetUserByUsername(username){
+        const result = await this.handler.GetUserByUsername(username)
+        return result
+    }
+
+    async CheckUsername(username){
+        const result = await this.handler.CheckUsername(username)
+        return result
+    }
+
+    async CheckEmail(email){
+        const result = await this.handler.CheckEmail(email)
+        return result
     }
 }

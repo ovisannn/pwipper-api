@@ -1,4 +1,3 @@
-
 export class Router{
     constructor(app, controllerList){
         this.app = app
@@ -15,19 +14,40 @@ export class Router{
         this.app.get('/user/getAll', (req, res)=>{
             return this.controllerList.user.GetAllUserController(req, res)
         })
-        //login req = {username, password} => WARNING !!!! decrypt error = Cannot read properties of undefined (reading 'salt')
+        //login req = {username, password} => aman
         this.app.post('/user/login', (req, res)=>{
             return this.controllerList.user.LoginController(req, res)
         })
-
+        //get user by username req = {username}
+        this.app.get("/user/:username", (req, res)=>{
+            return this.controllerList.user.GetUserByUsernameController(req,res)
+        })
+        //check username is exist
+        this.app.get("/user/username/check/:username", (req, res)=>{
+            return this.controllerList.user.CheckUsernameController(req, res)
+        })
+        //check email is exist
+        this.app.get("/user/email/check/:email", (req, res)=>{
+            return this.controllerList.user.CheckEmailController(req, res)
+        })
 
         //video routes
-            //get all video
-            //register product into video
-            //delete video
-            //update video
-        //add comment req = {username, comment, video._id} res={success/fail}*** 
-        this.app.post('/video/comment/insert', (req, res)=>{
+        //delete video param = video id
+        this.app.delete('/video/delete/videoId', (req, res, next)=>{
+            this.controllerList.authHandler.CookieJwtAuth(req, res, next)
+        }, (res, req)=>{
+            this.controllerList.video.DeleteVideoByIdController(req, res)
+        })
+        //update video req = {video property} param = viedo id
+        this.app.put('/video/update/:videoId', (req, res, next)=>{
+            this.controllerList.authHandler.CookieJwtAuth(req, res, next)
+        }, (res, req)=>{
+            this.controllerList.video.UpdateVideoByIdController(req, res)
+        })
+        //add comment req = {username, comment, video._id, token} res={success/fail}*** 
+        this.app.post('/video/comment/insert', (req, res, next)=>{
+            this.controllerList.authHandler.CookieJwtAuth(req, res, next)
+        }, (req, res)=>{
             return this.controllerList.video.InsertCommentController(req, res)
         })
         //get thumbnail res = [{video._id, videoUrl thumbnail}] ***
@@ -50,7 +70,14 @@ export class Router{
         this.app.post('/video/product/insert', (req, res)=>{
             return this.controllerList.video.InsertProductIntoVideoController(req, res)
         })
-
+        //get video by id param = {videoId}
+        this.app.get('/video/:videoId', (req, res)=>{
+            return this.controllerList.video.GetVideoByIdController(req, res)
+        })
+        //search video
+        this.app.get('/video/search/:searchParam', (req, res)=>{
+            return this.controllerList.video.SearchVideoController(req, res)
+        })
 
         //product routes
         //insert product req = { name, username, url, description, price }
@@ -61,7 +88,17 @@ export class Router{
         this.app.get('/product/getAll', (req, res)=>{
             return this.controllerList.product.GetAllProductsController(req, res)
         }) 
-            //update product by id
-            //delete product by id
+        //update product by id
+        this.app.put('/product/update/:productId', (req, res, next)=>{
+            return this.authHandler.CookieJwtAuth(req, res, next)
+        }, (req, res)=>{
+            return this.controllerList.product.UpdateProductByIdController(req, res)
+        })
+        //delete product by id
+        this.app.delete('/product/delete/:productId', (req, res, next)=>{
+            return this.authHandler.CookieJwtAuth(req, res, next)
+        }, (req, res)=>{
+            return this.controllerList.product.DeleteProductByIdController(req, res)
+        })
     }
 }
