@@ -9,6 +9,7 @@ export class CostumJwt{
 
     CookieJwtAuth(req, res, next){
         const token = req.cookies.token? req.cookies.token : req.body.token
+        console.log(token)
         try{
             const user = Jwt.verify(token, this._secretKey)
             req.user = user
