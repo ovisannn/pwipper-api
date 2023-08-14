@@ -32,7 +32,7 @@ app.use(
   })
   )
   
-  const db = new mongoodb(process.env.DB_URI, process.env.DB_USERNAME, process.env.DB_PASSWORD, process.env.DB_NAME)
+  const db = new mongoodb(process.env.DB_USERNAME, process.env.DB_PASSWORD, process.env.DB_NAME)
   db.init()
   
   //user
