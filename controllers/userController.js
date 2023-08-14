@@ -36,4 +36,18 @@ export class UserController{
         const newResponse = new BaseResponse(result.status, result.data)
         return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
     }
+
+    async CheckUsernameController (req, res){
+        const username = req.params.username
+        const result = await this.usecase.CheckUsername(username)
+        const newResponse = new BaseResponse(result.status, result.data)
+        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
+    }
+
+    async CheckEmailController (req, res){
+        const email = req.params.email
+        const result = await this.usecase.CheckEmail(email)
+        const newResponse = new BaseResponse(result.status, result.data)
+        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
+    }
 }

@@ -60,4 +60,20 @@ export class UserHandler{
         }
         return {status : 200, data : {result}}
     }
+
+    async CheckUsername(username){
+        const findUser = await this.model.findOne({username : username})
+        if(findUser !== null){
+            return {status : 409, data : newError.UsernameAlreadyExist.message}
+        }
+        return {status : 200, data : 'success'}
+    }
+
+    async CheckEmail(email){
+        const findUser = await this.model.findOne({email : email})
+        if(findUser !== null){
+            return {status : 409, data : newError.EmailAlreadyExist.message}
+        }
+        return {status : 200, data : 'success'}
+    }
 }

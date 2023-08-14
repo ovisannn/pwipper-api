@@ -22,6 +22,14 @@ export class Router{
         this.app.get("/user/:username", (req, res)=>{
             return this.controllerList.user.GetUserByUsernameController(req,res)
         })
+        //check username is exist
+        this.app.get("/user/username/check/:username", (req, res)=>{
+            return this.controllerList.user.CheckUsernameController(req, res)
+        })
+        //check email is exist
+        this.app.get("/user/email/check/:email", (req, res)=>{
+            return this.controllerList.user.CheckEmailController(req, res)
+        })
 
         //video routes
         //delete video param = video id

@@ -17,6 +17,7 @@ export class UserUsecase{
         }
         const userObj = new User(userData)
         userObj.HashPassword() 
+        userObj.SetDefaultUserProfile()
         // console.log(userObj.GetUser())
         const result = await this.handler.RegisterUser(userObj.GetUser())
         return result
@@ -46,6 +47,16 @@ export class UserUsecase{
 
     async GetUserByUsername(username){
         const result = await this.handler.GetUserByUsername(username)
+        return result
+    }
+
+    async CheckUsername(username){
+        const result = await this.handler.CheckUsername(username)
+        return result
+    }
+
+    async CheckEmail(email){
+        const result = await this.handler.CheckEmail(email)
         return result
     }
 }
