@@ -44,7 +44,7 @@ export class Router{
         }, (res, req)=>{
             this.controllerList.video.UpdateVideoByIdController(req, res)
         })
-        //add comment req = {username, comment, video._id} res={success/fail}*** 
+        //add comment req = {username, comment, video._id, token} res={success/fail}*** 
         this.app.post('/video/comment/insert', (req, res, next)=>{
             this.controllerList.authHandler.CookieJwtAuth(req, res, next)
         }, (req, res)=>{

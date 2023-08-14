@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 
 export class mongoodb{
-    constructor(uri, name){
-        this.uri = `mongodb://${uri}/${name}`
+    constructor(uri, username, password, dbName){
+        // mongodb+srv://ovisannn:Vqam8WrJcYl5KCCx@cluster0.hl4u9ei.mongodb.net/?retryWrites=true&w=majority
+        // this.uri = `mongodb://${uri}/${name}`
+        this.uri = `mongodb+srv://${username}:${password}@cluster0.hl4u9ei.mongodb.net/${dbName}?retryWrites=true&w=majority`
     }
 
     init(){
