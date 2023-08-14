@@ -5,6 +5,7 @@ export const ProductSchema = mongoose.Schema({
     username : String,
     description :String,
     url : String,
+    img : String,
     price : [{
         currency : String,
         amount : Number
@@ -23,6 +24,7 @@ export class Product{
         this.name = data.name
         this.username = data.username
         this.description = data.description
+        this.img = data.img
         this.url = data.url
         this.price = data.price
         this.createdAt = data.createdAt? data.createdAt : new Date()
@@ -39,6 +41,7 @@ export class Product{
             name : this.name,
             username : this.username,
             description : this.description,
+            img : this.img,
             url : this.url,
             price : this.price
         }

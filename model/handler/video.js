@@ -92,6 +92,7 @@ export class VideoHandler{
         for (let i = 0; i < productIds.length; i++) {
             const product = await this.modelProduct.findById(productIds[i].prodId.toString())
             const prodObj = new Product(product)
+            // console.log(prodObj.GetProduct())
             products.push(prodObj.GetProductsForEachVideo())
           }
 
@@ -99,11 +100,12 @@ export class VideoHandler{
     }
 
     async InsertProductIntoVideo(insertData){
+        console.log(insertData.productId)
         const resVideo = await this.model.findById(insertData.videoId)
         if(resVideo === null || resVideo === undefined){
             return {status : 404, data : newError.VideoDoesntExist.message}
         }
-        const resProduct = await this.model.findById(insertData.productId)
+        const resProduct = await this.modelProduct.findById(insertData.productId)
         if(resProduct === null || resProduct === undefined){
             return {status : 404, data : newError.ProductDoesntExist.message}
         }
@@ -117,5 +119,49 @@ export class VideoHandler{
             return {status : 500, data : newError.DbFailed.message}
         }
         return {status : 200, data : "success"}
+    }
+
+    async GetVideoById(videoId){
+        // console.log(videoId)
+        let resVideo = await this.model.findById(videoId)
+        if(resVideo === null || resVideo === undefined){
+            return {status : 404, data : newError.VideoDoesntExist.message}
+        }
+
+        return {status : 200, data : {video : resVideo}}
+    }
+
+    async UpdateVideoById(videoId, data){
+        const result = await this.model.findByIdAndUpdate(videoId, data, {returnDocument : 'after'}).catch(err=>{
+            return newError.DbFailed.message
+        })
+
+        if (result === newError.DbFailed.message){
+            return {status : 500, data : newError.DbFailed.message}
+        }
+
+        return {status : 200, data : {video : result}}
+    }
+
+    async DeleteVideoById(videoId){
+        await this.model.findByIdAndDelete(videoId).catch(err=>{
+            return {status : 500, data : newError.DbFailed.message}
+        })
+
+        return {status : 200, data : 'success'}
+    }
+
+    async SearchVideo(searchParam){
+        const resVideos = await this.model.find({title : { $regex: searchParam, $options : 'i' }})
+        if(resVideos === null|| resVideos === undefined){
+            return {status : 404, data : newError.VideoDoesntExist.message}
+        }
+        var resThumbnails = []
+        resVideos.map((video)=>{
+            const videoObj = new Video(video)
+            resThumbnails.push(videoObj.GetVideoThumbnail())
+        })
+
+        return {status : 200, data : {tumbnails : resThumbnails}}
     }
 }

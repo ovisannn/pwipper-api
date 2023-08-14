@@ -13,4 +13,14 @@ export class ProductUsecase{
         const result = await this.handler.GetAllProducts()
         return result
     }
+
+    async UpdateProductById(productId, data){
+        const result = await this.handler.UpdateProductById(productId, data)
+        return result
+    }
+
+    async DeleteProductById(productId){
+        const result = await this.handler.DeleteProductById(productId)
+        return result
+    }
 }

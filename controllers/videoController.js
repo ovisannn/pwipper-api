@@ -47,4 +47,33 @@ export class VideoController{
         const newResponse = new BaseResponse(result.status, result.data)
         return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
     }
+
+    async GetVideoByIdController(req, res){
+        const videoId = req.params.videoId
+        const result = await this.usecase.GetVideoById(videoId)
+        const newResponse = new BaseResponse(result.status, result.data)
+        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
+    }
+
+    async UpdateVideoByIdController(req, res){
+        const videoId = req.params.videoId
+        const videoData = req.body
+        const result = await this.usecase.UpdateVideoById(videoId, videoData)
+        const newResponse = new BaseResponse(result.status, result.data)
+        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())        
+    }
+    
+    async DeleteVideoByIdController(req, res){
+        const videoId = req.params.videoId
+        const result = await this.usecase.DeleteVideoById(videoId)
+        const newResponse = new BaseResponse(result.status, result.data)
+        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
+    }
+
+    async SearchVideoController(req, res){
+        const searchParam = req.params.searchParam
+        const result = await this.usecase.SearchVideo(searchParam)
+        const newResponse = new BaseResponse(result.status, result.data)
+        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
+    }
 }

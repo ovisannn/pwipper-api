@@ -38,4 +38,15 @@ export class User{
     HashPassword(){
         this.password = Encrypt(this.password)
     }
+
+    GetUserPublicInformation(){
+        return{
+            username : this.username,
+            profilePpict : this.profilePpict
+        }
+    }
+
+    SetDefaultUserProfile(){
+        this.profilePpict = 'https://static.vecteezy.com/system/resources/thumbnails/001/840/618/small/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg'
+    }
 }

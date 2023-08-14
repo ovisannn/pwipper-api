@@ -20,4 +20,19 @@ export class ProductController{
         const newResponse = new BaseResponse(result.status, result.data)
         return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
     }
+
+    async UpdateProductByIdController(req, res){
+        const productId = req.params.productId
+        const data = req.body
+        const result = await this.usecase.UpdateProductById(productId, data)
+        const newResponse = new BaseResponse(result.status, result.data)
+        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())
+    }
+
+    async DeleteProductByIdController(req, res){
+        const productId = req.params.productId
+        const result = await this.usecase.DeleteProductById(productId)
+        const newResponse = new BaseResponse(result.status, result.data)
+        return res.status(newResponse.GetStatus()).json(newResponse.GetResponse())        
+    }
 }
